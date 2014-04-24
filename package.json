@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "grunt server",
-    "test": "grunt jshint2"
+    "test": "grunt jshint2 && node_modules/mocha/bin/mocha -R spec"
   },
   "dependencies": {
     "lodash": "~2.4.1",
@@ -20,7 +20,10 @@
     "connect-multiparty": "~1.0.3",
     "body-parser": "~1.0.2",
     "connect": "~2.14.4",
-    "connect-session-sequelize": "~1.0.0"
+    "connect-session-sequelize": "~1.0.0",
+    "request": "~2.34.0",
+    "cheerio": "~0.15.0",
+    "bluebird": "~1.2.3"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -33,7 +36,10 @@
     "grunt-contrib-handlebars": "~0.6.1",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-clean": "~0.5.0"
+    "grunt-contrib-clean": "~0.5.0",
+    "should": "~3.3.1",
+    "mocha": "~1.18.2",
+    "sinon": "~1.9.1"
   },
   "description": "Derby Party ===========",
   "main": "server/app.js",

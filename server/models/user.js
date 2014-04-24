@@ -20,4 +20,6 @@ var User = passportLocalSequelize.defineUser(sequelize, {
     }
 });
 
+User.sync();
+
 module.exports = User;
