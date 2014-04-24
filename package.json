@@ -1,6 +1,6 @@
 {
-  "name": "package",
-  "version": "0.0.0",
+  "name": "derby-party",
+  "version": "0.0.1",
   "scripts": {
     "start": "grunt server",
     "test": "grunt jshint2"
@@ -34,5 +34,21 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-clean": "~0.5.0"
-  }
+  },
+  "description": "Derby Party ===========",
+  "main": "server/app.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "derby",
+    "express",
+    "ember"
+  ],
+  "author": [
+    "Jacob Gable <jacob.gable@gmail.com>",
+    "Ryan Skurkis"
+  ],
+  "license": "MIT"
 }
