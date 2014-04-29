@@ -1,4 +1,17 @@
 <div>
-<div>My name is {{name}}</div>
-<div>I'm {{age}} years old</div>
+	<div>My name is {{name}}</div>
+	<div>I'm {{age}} years old</div>
 </div>
+{{#if currentBet.isLoaded}}
+	{{#with currentBet}}
+		<div>
+			{{#with user}}
+				Current Bet is placed by {{name}}
+			{{/with}}
+		</div>
+		<div>{{timeStamp}}</div>
+		<div>{{money}}</div>
+	{{/with}}
+{{else}}
+	LOADING.......
+{{/if}}

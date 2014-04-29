@@ -9,9 +9,5 @@ export default Ember.Route.extend({
       });
     },250);
     return dfd.promise;
-    // return {
-    //   name: "John",
-    //   age:params.horse_id
-    // };
   }
 });
