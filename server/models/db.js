@@ -11,7 +11,6 @@ module.exports = {
     instance: db,
     init: function (done) {
         var sync = this.sync;
-
         // Authenticate the db
         db.authenticate()
             .complete(function (err) {
