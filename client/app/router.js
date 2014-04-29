@@ -1,8 +1,11 @@
-var Router = Ember.Router.extend(); // ensure we don't share routes between all Router instances
+var Router = Ember.Router.extend({
+    location: 'pushState' in window.history ? 'history' : undefined
+});
 
 Router.map(function() {
-  this.route('component-test');
-  this.route('helper-test');
+  this.route('login');
+  this.route('register');
+  this.route('forgotpassword');
 
   //Our stuff
   this.resource('party', {path: '/party/:party_id'}, function(){
