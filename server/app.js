@@ -12,7 +12,7 @@ var path     = require('path'),
     exphbs   = require('express3-handlebars'),
 
     db = require('./models/db'),
-    User = require('./models/user'),
+    User = require('./models').User,
 
     app = express(),
     hbs,

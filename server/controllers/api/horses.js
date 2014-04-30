@@ -1,6 +1,7 @@
 
 var _ = require('lodash'),
-    Horse = require('../models/horse');
+    params = require('../../middleware/params'),
+    Horse = require('../../models').Horse;
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -25,28 +26,7 @@ module.exports = function (app) {
             });
     });
 
-    app.param('horseId', function (req, res, next, horseId) {
-        // TODO: Handle slug or id
-
-        var id = parseInt(horseId, 10);
-
-        if (isNaN(id)) {
-            return res.send(403, 'Not found');
-        }
-
-        Horse.find(id)
-            .success(function (found) {
-                if (!found) {
-                    return res.send(403, 'Not found');
-                }
-
-                req.horse = found;
-                next();
-            })
-            .error(function (err) {
-                res.send(500, err.message);
-            });
-    });
+    app.param('horseId', params.horseId);
 
     app.get('/:horseId', function (req, res) {
         res.json({ horse: req.horse.values });

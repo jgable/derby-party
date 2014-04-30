@@ -24,12 +24,6 @@ module.exports = {
     },
     sync: function (done) {
         db.sync()
-            .complete(function (err) {
-                if (err) {
-                    return done(err);
-                }
-
-                done();
-            });
+            .complete(done);
     }
 };
