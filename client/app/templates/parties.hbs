@@ -1,20 +1,45 @@
 
 <!-- Main component for a primary marketing message or call to action -->
-{{#if isEmpty}}
-	<div class="jumbotron">
-	    <h1>Get your party on</h1>
-	    <p>
-	        <button type="button" class="btn btn-primary btn-lg">Start a Party</button>
-	    </p>
-	</div>
-{{else}}
-	<h1>Parties</h1>
-	<div class="parties-list">
-	{{#each}}
-		<div class="parties-list-item">{{#link-to 'party' this class="btn btn-primary btn-lg"}}{{title}}{{/link-to}}</div>
-	{{/each}}
-	</div>
-{{/if}}
+<div class="jumbotron">
+	{{#if isLoggedIn}}
+	<p>
+		{{#if isEmpty}}
+		Looks like there aren't any parties started yet.  Wanna make one?
+		{{else}}
+		Want to make a new party?
+		{{/if}}
+	</p>
 
+	<form role="form" class="parties-create">
+	  <div class="form-group">
+	    {{input type="text" id="partyName" class="form-control" placeholder="Party Name" value=partyName}}
+	    {{#if error}}
+        <span class="text-danger">
+            - {{error}}
+        </span>
+        {{/if}}
+	  </div>
+	  
+	  <button type="submit" class="btn btn-primary" {{action 'makeParty'}}>Get your party on</button>
+	</form>
+	{{else}}
+	<p>
+		{{#if isEmpty}}
+		There are no parties created yet, {{#link-to 'login'}}log in{{/link-to}} or {{#link-to 'register'}}register{{/link-to}} to create a new party.
+		{{else}}
+		You can create a new party by {{#link-to 'login'}}logging in{{/link-to}} or {{#link-to 'register'}}registering{{/link-to}}.
+		{{/if}}
+	</p>
+	{{/if}}
+</div>
+
+{{#unless isEmpty}}
+<h1>Parties</h1>
+<div class="parties-list">
+{{#each}}
+	<div class="parties-list-item">{{#link-to 'party' this class="btn btn-primary btn-lg"}}{{title}}{{/link-to}}</div>
+{{/each}}
+</div>
+{{/unless}}
 
 

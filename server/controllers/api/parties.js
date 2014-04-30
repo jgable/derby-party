@@ -1,4 +1,5 @@
 var _ = require('lodash'),
+    auth = require('../../middleware/auth'),
     params = require('../../middleware/params'),
     Models = require('../../models'),
     Horse = Models.Horse,
@@ -10,6 +11,26 @@ module.exports = function (app) {
             .findAll()
             .success(function (parties) {
                 res.json({ parties: _.pluck(parties, 'values') });
+            })
+            .error(function (err) {
+                res.send(500, err.message);
+            });
+    });
+
+    app.post('/', auth.ensureAuthenticated(), function (req, res) {
+        var newParty = Party.build({
+            UserId: req.user.id,
+            title: req.param('title'),
+            slug: req.param('slug')
+        });
+
+        // TODO: Validate?
+
+        newParty.save()
+            .success(function (createdParty) {
+                res.json({
+                    party: createdParty
+                });
             })
             .error(function (err) {
                 res.send(500, err.message);

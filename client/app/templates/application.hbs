@@ -12,7 +12,9 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active">{{#link-to 'parties'}}Find Parties{{/link-to}}</li>
+        {{#link-to "parties" tagName="li" class="nav-item"}}
+            {{#link-to "parties"}}Find Parties{{/link-to}}
+        {{/link-to}}
         <!--
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -32,7 +34,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right userlogin">
         {{#if isLoggedIn}}
-      	<li class="userlogin-loggedin-user">{{#link-to 'user'}}{{user.username}}{{/link-to}}</li>
+      	<li class="userlogin-loggedin-user">{{#link-to 'user'}}{{loggedInUser.username}}{{/link-to}}</li>
         <li class="userlogin-loggedin-logout"><a href="/logout">Logout</a></li>
         {{else}}
         <li class="userlogin-loggedout">{{#link-to 'login'}}Login{{/link-to}}</li>
