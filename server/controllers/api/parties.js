@@ -18,11 +18,9 @@ module.exports = function (app) {
     });
 
     app.post('/', auth.ensureAuthenticated(), function (req, res) {
-        var newParty = Party.build({
-            UserId: req.user.id,
-            title: req.param('title'),
-            slug: req.param('slug')
-        });
+        var newParty = Party.build(_.extend(req.param('party'), {
+            UserId: req.user.id
+        }));
 
         // TODO: Validate?
 
@@ -37,10 +35,52 @@ module.exports = function (app) {
             });
     });
 
+    app.put('/', function (req, res) {
+        var partyData = _.pick(req.body.party, 'id', 'title', 'slug');
+
+        if (!partyData.id || !_.isNumber(partyData.id)) {
+            return res.send(400, 'No id defined or not formatted correctly');
+        }
+
+        Party.find(partyData.id)
+            .success(function (found) {
+                if (!found) {
+                    return res.send(404, 'Party not found with id: ' + partyData.id);
+                }
+
+                found.updateAttributes(partyData, ['title', 'slug'])
+                    .success(function (updated) {
+                        res.json({
+                            party: updated
+                        });
+                    })
+                    .error(function (err) {
+                        res.send(500, err.message);
+                    });
+            })
+            .error(function (err) {
+                res.send(500, err.message);
+            });
+    });
+
     app.param('partyId', params.partyId);
 
     app.get('/:partyId', function (req, res) {
         res.json({ party: req.party.values });
+    });
+
+    app['delete']('/:partyId', auth.ensureAuthenticated(), function (req, res) {
+        if (req.party.UserId !== req.user.id) {
+            return res.send(403, 'Unable to delete another owners party');
+        }
+
+        req.party.destroy()
+            .success(function () {
+                res.send(204);
+            })
+            .error(function (err) {
+                res.send(500, err.message);
+            });
     });
 
     app.get('/:partyId/horses', function (req, res) {

@@ -15,13 +15,19 @@ body {
 	&-list {
 		list-style-type: none;
 		padding: 0;
-		margin: 0;
+		margin: 0 0 0 -10px;
 		text-align: center;
 
 		&-item {
 			margin: 0;
-			padding: 0;
+			padding: 10px;
 			list-style-type: none;
+
+			.btn {
+				width: 200px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
 
 			float: left;
 		}
