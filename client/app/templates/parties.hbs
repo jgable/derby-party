@@ -1,17 +1,20 @@
 
 <!-- Main component for a primary marketing message or call to action -->
-{{#unless hasParties}}
+{{#if isEmpty}}
 <div class="jumbotron">
     <h1>Get your party on</h1>
     <p>
         <button type="button" class="btn btn-primary btn-lg">Start a Party</button>
     </p>
 </div>
-{{/unless}}
-{{#if hasParties}}
-<ul class="parties">
-{{#each parties}}
-	<li class="parties-item">{{#link-to 'party'}}{{title}}{{/link-to}}</li>
+{{else}}
+<h1>Parties</h1>
+<div class="parties-list">
+{{#each}}
+	<div class="parties-list-item">{{#link-to 'party' this class="btn btn-primary btn-lg"}}{{title}}{{/link-to}}</div>
 {{/each}}
-</ul>
+</div>
 {{/if}}
+
+
+
