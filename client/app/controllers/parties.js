@@ -6,7 +6,7 @@ export default Ember.ArrayController.extend(LoggedInMixin, {
 
     currentParties: function () {
         return this.get('content').toArray();
-    }.property('content', 'content.isLoaded'),
+    }.property('content', 'content.isLoaded', 'content.isUpdating'),
 
     isEmpty: function () {
         return this.get('currentParties').length < 1;
@@ -32,8 +32,7 @@ export default Ember.ArrayController.extend(LoggedInMixin, {
             });
 
             party.save().then(function () {
-                self.addObject(party);
-                self.transitionToRoute('party', party);
+                self.get('content').update();
             });
         }
     }

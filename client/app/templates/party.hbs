@@ -1,2 +1,2 @@
-<h1>{{title}}</h1>
+<h1>{{title}} {{#if amOwner}}<span class="title-link"><a href='javascript:void' {{action 'remove'}}>Remove</a></span>{{/if}}</h1>
 {{outlet}}
