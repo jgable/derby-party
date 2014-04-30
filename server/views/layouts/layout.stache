@@ -23,7 +23,11 @@
 
     <script>
         window.ENV = window.ENV || {};
-        window.App = requireModule('appkit/app')['default'].create(ENV.APP);
+        window.ENV.APP = window.ENV.APP || {};
+        {{#user}}
+        window.ENV.APP.user = {{{this}}};
+        {{/user}}
+        window.App = requireModule('appkit/app')['default'].create(window.ENV.APP);
     </script>
 </body>
 </html>

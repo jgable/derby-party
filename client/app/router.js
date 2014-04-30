@@ -6,8 +6,10 @@ Router.map(function() {
   this.route('login');
   this.route('register');
   this.route('forgotpassword');
+  this.route('user');
 
-  //Our stuff
+  this.route('parties');
+
   this.resource('party', {path: '/party/:party_id'}, function(){
     this.route('create');
     this.route('edit');

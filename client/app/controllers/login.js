@@ -17,7 +17,9 @@ export default Ember.ObjectController.extend({
                 }
             }).then(function (resp) {
                 if (resp && resp.user) {
-                    self.transitionToRoute(resp.ref || 'party');
+                    self.send('loggedIn', resp.user);
+
+                    self.transitionToRoute(resp.ref || 'parties');
                 }
 
                 self.set('error', resp.error);
