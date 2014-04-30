@@ -1,19 +1,19 @@
 
 <!-- Main component for a primary marketing message or call to action -->
 {{#if isEmpty}}
-<div class="jumbotron">
-    <h1>Get your party on</h1>
-    <p>
-        <button type="button" class="btn btn-primary btn-lg">Start a Party</button>
-    </p>
-</div>
+	<div class="jumbotron">
+	    <h1>Get your party on</h1>
+	    <p>
+	        <button type="button" class="btn btn-primary btn-lg">Start a Party</button>
+	    </p>
+	</div>
 {{else}}
-<h1>Parties</h1>
-<div class="parties-list">
-{{#each}}
-	<div class="parties-list-item">{{#link-to 'party' this class="btn btn-primary btn-lg"}}{{title}}{{/link-to}}</div>
-{{/each}}
-</div>
+	<h1>Parties</h1>
+	<div class="parties-list">
+	{{#each}}
+		<div class="parties-list-item">{{#link-to 'party' this class="btn btn-primary btn-lg"}}{{title}}{{/link-to}}</div>
+	{{/each}}
+	</div>
 {{/if}}
 
 
