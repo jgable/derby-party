@@ -10,7 +10,8 @@ export default Ember.ArrayController.extend(LoggedInMixin, {
 
     actions: {
         makeParty: function () {
-            var partyName = this.get('partyName');
+            var that=this,
+                partyName = this.get('partyName');
 
             if (!partyName || partyName.length < 3) {
                 this.set('error', 'Please enter a descriptive name');
@@ -26,7 +27,9 @@ export default Ember.ArrayController.extend(LoggedInMixin, {
                 slug: partyName.toLowerCase().replace(/ /g, '-')
             });
 
-            party.save();
+            party.save().then(function(){
+                that.transitionToRoute('party', party.get('id'));
+            });
         }
     }
 });
