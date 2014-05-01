@@ -36,8 +36,8 @@
 {{#unless isEmpty}}
 <h1>Parties</h1>
 <div class="parties-list">
-{{#each party in currentParties}}
-	<div class="parties-list-item">{{#link-to 'party' party class="btn btn-success btn-lg"}}{{party.title}}{{/link-to}}</div>
+{{#each}}
+	<div class="parties-list-item">{{#link-to 'party' this class="btn btn-success btn-lg"}}{{title}}{{/link-to}}</div>
 {{/each}}
 </div>
 {{/unless}}
