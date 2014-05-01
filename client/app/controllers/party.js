@@ -1,5 +1,5 @@
 
-export default Ember.Controller.extend({
+export default Ember.ObjectController.extend({
 	amOwner: function () {
 		var user = this.get('user'),
 			content = this.get('content');
