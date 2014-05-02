@@ -1,0 +1,17 @@
+<div>
+	Place a new bet by 
+	{{view Ember.Select
+			content=currentUsers
+			optionLabelPath="content.name"
+			value=newBidder
+			prompt="Pick A User"
+	}}
+	for $  
+	{{input value=newBidValue
+			placeholder="New Bid"
+			maxlength=3
+	}}
+</div>
+<div>
+	<button {{bind-attr disabled=isSubmitDisabled}} {{action 'submitBid'}}> Submit Bid </button>
+</div>

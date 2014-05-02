@@ -1,0 +1,7 @@
+{{#if currentBid}}
+	<div>
+		Current Bet is placed by {{currentBid.user.name}} for ${{currentBid.money}}
+	</div>
+{{else}}
+	<div>There are no current bids on this horse</div>
+{{/if}}
