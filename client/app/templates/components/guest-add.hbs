@@ -1,0 +1,17 @@
+<form role="form" class="guest-create">
+  <div class="form-group">
+    {{input type="text" value=guestName class="form-control" placeholder="Joe Schmoe"}}
+    
+    {{#if error}}
+    <span class="text-danger">
+        - {{error}}
+    </span>
+    {{/if}}
+  
+  </div>
+  
+  <button type="submit" 
+          class="btn btn-primary" 
+          {{bind-attr disabled=isSubmitDisabled}}
+          {{action 'addGuest'}}>Add a Guest</button>
+</form>

@@ -1,21 +1,7 @@
 
 <div class="jumbotron">
     <h1>{{title}} {{#if amOwner}}<span class="title-link"><a href='javascript:void' {{action 'remove'}}>Remove</a></span>{{/if}}</h1>
-
-    <form role="form" class="guest-create">
-      <div class="form-group">
-        {{input type="text" id="guestName" class="form-control" placeholder="Joe Schmoe" value=name}}
-        
-        {{#if error}}
-        <span class="text-danger">
-            - {{error}}
-        </span>
-        {{/if}}
-      
-      </div>
-      
-      <button type="submit" class="btn btn-primary" {{action 'addGuest'}}>Add a Guest</button>
-    </form>
+    {{guest-add partyId=controllers.party.content.id}}
 </div>
 
 {{outlet}}
