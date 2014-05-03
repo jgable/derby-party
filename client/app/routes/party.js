@@ -1,8 +1,10 @@
 export default Ember.Route.extend({
     templateName: 'party',
 
-    beforeModel:function(){
-        this.transitionTo('horses');
+    beforeModel:function(info){
+        if(info.targetName === 'party.index'){
+            this.transitionTo('horses');
+        }
     },
 
     actions: {
