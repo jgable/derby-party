@@ -1,6 +1,10 @@
 import ajax from 'appkit/utils/ajax';
 
 export default Ember.ObjectController.extend({
+    username: null,
+    password: null,
+    error: null,
+
     actions: {
         login: function () {
             var self = this;
