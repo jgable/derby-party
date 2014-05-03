@@ -1,7 +1,8 @@
 var Party = DS.Model.extend({
 	title: DS.attr('string'),
 	slug: DS.attr('string'),
-	owner: DS.belongsTo('user')
+	owner: DS.belongsTo('user'),
+	guests: DS.hasMany('guest')
 });
 
 Party.reopenClass({

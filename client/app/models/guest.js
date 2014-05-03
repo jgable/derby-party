@@ -1,5 +1,6 @@
 var Guest = DS.Model.extend({
-	name: DS.attr('string')
+	name: DS.attr('string'),
+	bids: DS.hasMany('bid')
 });
 
 Guest.reopenClass({
