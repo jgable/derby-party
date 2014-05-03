@@ -4,6 +4,7 @@ var _ = require('lodash'),
     Models = require('../../models'),
     Horse = Models.Horse,
     Party = Models.Party,
+    Guest = Models.Guest,
     Bid = Models.Bid;
 
 module.exports = function (app) {
@@ -199,5 +200,63 @@ module.exports = function (app) {
                             res.send(500, err.message);
                         });
                 });
+    });
+
+    app.get('/:partyId/guests', function (req, res) {
+        req.party.getGuests()
+            .success(function (foundGuests) {
+                res.json({
+                    guests: _.pluck(foundGuests, 'values')
+                });
+            })
+            .error(function (err) {
+                res.send(500, err.message);
+            });
+    });
+
+    app.post('/:partyId/guests', auth.ensureAuthenticated(), function (req, res) {
+        var newGuestInfo = {
+            name: req.param('name')
+        };
+
+        Guest.create(newGuestInfo)
+            .success(function (newGuest) {
+                req.party.addGuest(newGuest)
+                    .success(function () {
+                        res.json({
+                            guest: newGuest.values
+                        });
+                    })
+                    .error(function (err) {
+                        res.send(500, err.message);
+                    });
+            })
+            .error(function (err) {
+                res.json(500, err.message);
+            });
+    });
+
+    app['delete']('/:partyId/guests/:guestId', auth.ensureAuthenticated(), function (req, res) {
+        if (req.party.UserId !== req.user.id) {
+            return res.send(401, 'Not allowed to modify party you are not owner of');
+        }
+
+        req.party.getGuests({ where: { id: req.param('guestId') }})
+            .success(function (foundGuest) {
+                if (!foundGuest || foundGuest.length < 1) {
+                    return res.send(404, 'Unable to find guest with id: ' + req.param('guestId'));
+                }
+
+                foundGuest[0].destroy()
+                    .success(function () {
+                        res.send(204);
+                    })
+                    .error(function (err) {
+                        res.send(500, err.message);
+                    });
+            })
+            .error(function (err) {
+                res.send(500, err.message);
+            });
     });
 };

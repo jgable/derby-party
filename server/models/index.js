@@ -45,6 +45,17 @@ var Party = sequelize.define('Party', {
     }
 });
 
+var Guest = sequelize.define('Guest', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING
+    }
+});
+
 var Horse = sequelize.define('Horse', {
     id: {
         type: Sequelize.INTEGER,
@@ -139,17 +150,20 @@ var Bid = sequelize.define('Bid', {
 });
 
 // Setup the relations
-User.hasMany(Party, { as: 'parties' })
-    .hasMany(Bid, { as: 'bids' });
+User.hasMany(Party, { as: 'parties' });
+
+Guest.hasMany(Bid, { as: 'bids' });
 
 Party.hasOne(User, { as: 'owner' })
-	 .hasMany(Bid, { as: 'bids' });
+     .hasMany(Guest, { as: 'guests' })
+     .hasMany(Bid, { as: 'bids' });
 
 Horse.hasMany(Bid, { as: 'bids' });
 
 module.exports = {
-	User: User,
-	Party: Party,
-	Horse: Horse,
-	Bid: Bid
+    User: User,
+    Party: Party,
+    Guest: Guest,
+    Horse: Horse,
+    Bid: Bid
 };
