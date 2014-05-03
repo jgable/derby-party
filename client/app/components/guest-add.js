@@ -4,7 +4,6 @@ export default Ember.Component.extend({
 
 	actions: {
 		addGuest: function () {
-			debugger;
 			var that = this,
 				name = this.get('guestName');
 
