@@ -1,10 +1,11 @@
-HORSES
-
-{{#each model}}
-	<div>
-		{{#link-to 'horse' id}}
-				<div>{{name}}</div>
-		{{/link-to}}
-		{{bid-current currentBid=currentBid}}
-	</div>
+<div class="horses">
+{{#each}}
+    <div class="panel panel-default horses-card">
+      <div class="horses-card-heading">{{#link-to 'horse' id class='horses-card-link'}}{{name}}{{/link-to}}</div>
+      <div class="horses-card-body">
+        {{bid-current currentBid=currentBid}}
+        <img {{bind-attr src=headshotImage}} alt="{{name}}" class="horses-card-headshot" />
+      </div>
+    </div>
 {{/each}}
+</div>
