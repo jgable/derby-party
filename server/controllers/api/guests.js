@@ -1,10 +1,22 @@
 
-var Guest = require('../../models').Guest,
+var _ = require('lodash'),
+    Guest = require('../../models').Guest,
     auth = require('../../middleware/auth');
 
 module.exports = function (app) {
-    app.post('/', function (req, res) {
-        var name = req.param('name'),
+    app.get('/', function (req, res) {
+        Guest
+            .findAll()
+            .success(function (guests) {
+                res.json({ guests: _.pluck(guests, 'values') });
+            })
+            .error(function (err) {
+                res.send(500, err.message);
+            });
+    });
+
+    app.post('/', function (req, res) {        
+        var name = req.body.guest.name,
             partyId = req.param('PartyId');
 
         Guest.create({ name: name, PartyId: partyId })

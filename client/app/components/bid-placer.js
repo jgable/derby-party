@@ -23,7 +23,7 @@ export default Ember.Component.extend({
 
 		console.log(this.get('currentUsers'));
 
-		this.store.find('user').then(function(users){
+		this.store.find('guest').then(function(users){
 		  that.set('currentUsers', users);
 		});
 	},
