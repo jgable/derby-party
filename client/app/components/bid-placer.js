@@ -1,18 +1,28 @@
 export default Ember.Component.extend({
 	attributeBindings: ['style'],
+	currentHorse:null,
 	currentBid:null,
 	currentUsers:[],
 
-	newBid:null,
 	newBidder:null,
-	newBidValue:null,
+	newBidAmount:null,
 
 	actions:{
 		submitBid:function(){
 			console.log('updating bet');
-		},
-		chooseBidder:function(){
-			console.log('Choosing Bidder');
+			var newBid = this.store.createRecord('bid', {
+				guest:this.get('newBidder'),
+				amount:this.get('newBidAmount'),
+				horse:this.get('currentHorse')
+			});
+
+			newBid.save().then(function(){
+
+			}).fail(function(){
+				Ember.run.next(function(){
+					newBid.deleteRecord();
+				});
+			});
 		}
 	},
 
@@ -30,19 +40,19 @@ export default Ember.Component.extend({
 
 	isValidBet:function(){
 		var newBidder = this.get('newBidder'),
-			newBidValue = this.get('newBidValue'),
+			newBidAmount = this.get('newBidAmount'),
 			isHigherThanCurrentBid = this.get('isHigherThanCurrentBid');
 
-		return newBidder != null && newBidValue > 0 && isHigherThanCurrentBid;
-	}.property('newBidder', 'newBidValue', 'isHigherThanCurrentBid'),
+		return newBidder != null && newBidAmount > 0 && isHigherThanCurrentBid;
+	}.property('newBidder', 'newBidAmount', 'isHigherThanCurrentBid'),
 
 	isHigherThanCurrentBid:function(){
 		var currentBid = this.get('currentBid'),
 			isLoaded = this.get('currentBid.isLoaded'),
-			currentBidMoney = this.get('currentBid.money');
+			currentBidAmount = this.get('currentBid.Amount');
 
 		if(currentBid != null){
-			if(isLoaded && this.newBidValue > currentBidMoney){
+			if(isLoaded && this.newBidAmount > currentBidAmount){
 				return true;
 			}else{
 				return false;
@@ -50,7 +60,7 @@ export default Ember.Component.extend({
 		}else{
 			return true;
 		}
-	}.property('currentBid.isLoaded', 'newBidValue'),
+	}.property('currentBid.isLoaded', 'newBidAmount'),
 
 	isSubmitDisabled:Ember.computed.not('isValidBet')
 });

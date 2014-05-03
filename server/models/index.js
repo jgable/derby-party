@@ -160,6 +160,9 @@ Party.hasOne(User, { as: 'owner' })
 
 Horse.hasMany(Bid, { as: 'bids' });
 
+Bid.hasOne(Guest, { as:'guest'})
+    .hasOne(Horse, {as:'horse'});
+
 module.exports = {
     User: User,
     Party: Party,

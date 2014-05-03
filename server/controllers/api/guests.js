@@ -17,7 +17,7 @@ module.exports = function (app) {
 
     app.post('/', function (req, res) {        
         var name = req.body.guest.name,
-            partyId = req.param('PartyId');
+            partyId = req.body.guest.party;
 
         Guest.create({ name: name, PartyId: partyId })
             .success(function (createdGuest) {
